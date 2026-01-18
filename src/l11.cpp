@@ -8,6 +8,26 @@
 
 #include "l-common.cpp"
 
+std::vector<int> merge_sorted(std::span<int> a, std::span<int> b) {
+    int size_a = a.size();
+    int size_b = b.size();
+
+    std::vector<int> result;
+    result.reserve(size_a + size_b);
+
+    for (int ia = 0; const auto& va : a) {
+        if (ia < size_b)  {
+            for (int ib = ia; const auto& vb : b) {
+                if (vb > va) {
+                    result.push_back(vb);
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
 int main(void) {
 
 

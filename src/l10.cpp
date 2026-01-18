@@ -25,7 +25,7 @@ std::vector<T> zip(std::span<T> a, std::span<T> b) {
             i_a += 1;
         }
 
-        // if B is also unfinished
+        // if B is unfinished
         if (i_b < size_b) {
             result.push_back(b[i_b]);
             i_b += 1;
