@@ -10,6 +10,7 @@
 #pragma once
 // ;)
 
+#include <cstdlib>
 #include <iostream>
 #include <algorithm>
 #include <string_view>
@@ -106,6 +107,26 @@ inline void assert_one(
     std::string_view name
 ) {
     if (test != truth) {
+        std::cerr << "\nTest '" << name << "' failed!\n";
+        std::cerr << "Test:  " << test << "\n";
+        std::cerr << "Truth: " << truth << "\n\n";
+
+        throw std::runtime_error("Assert failed");
+    } else {
+        std::cout << "Test '" << name << "' passed!\n";
+    }
+}
+
+// This is a specialized template. It's still part of the generic template call,
+// but the type parameter is known and this implementation is used instead for
+// that known type. It is a specialized implementation.
+template <>
+inline void assert_one<float>(
+    float test,
+    float truth,
+    std::string_view name
+) {
+    if (abs(test - truth) < 0.00001) {
         std::cerr << "\nTest '" << name << "' failed!\n";
         std::cerr << "Test:  " << test << "\n";
         std::cerr << "Truth: " << truth << "\n\n";
